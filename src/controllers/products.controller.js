@@ -17,3 +17,7 @@ const getProducts = async (req, res) => {
     handleHttpError(res, 'ERROR_GET_PRODUCTS');
   }
 };
+
+export default {
+  getProducts,
+};
