@@ -10,6 +10,9 @@ export const sequelize = new Sequelize(database, user, password, {
   dialect: 'mysql',
 });
 
+/**
+ * * Database Connection
+ */
 export const dbConnectMySql = async () => {
   try {
     await sequelize.authenticate();
