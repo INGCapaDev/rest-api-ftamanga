@@ -11,18 +11,40 @@ import { handleHttpError } from '../utils/handleError.js';
  */
 const getProducts = async (req, res) => {
   try {
-    const products = await models.productsModel.findAll({});
-    res.send({ products });
+    const data = await models.productsModel.findAll({});
+    res.send({ data });
   } catch (error) {
     handleHttpError(res, 'ERROR_GET_PRODUCTS');
   }
 };
 
+/**
+ * * Get Product Detail
+ * @param {*} req
+ * @param {*} res
+ */
+const getProductDetail = async (req, res) => {
+  try {
+    const { id } = matchedData(req);
+    const data = await models.productsModel.findByPk(id);
+    if (!data) {
+      return handleHttpError(res, 'ERROR_PRODUCT_NOT_EXISTS');
+    }
+  } catch (error) {
+    handleHttpError(res, 'ERROR_GET_PRODUCT_DETAIL');
+  }
+};
+
+/**
+ * * Create New Product
+ * @param {*} req
+ * @param {*} res
+ */
 const createProduct = async (req, res) => {
   try {
     const product = matchedData(req);
-    const result = await models.productsModel.create(product);
-    res.send({ result });
+    const data = await models.productsModel.create(product);
+    res.send({ data });
   } catch (error) {
     handleHttpError(res, 'ERROR_CREATE_PRODUCT');
   }
