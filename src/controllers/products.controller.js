@@ -20,9 +20,9 @@ const getProducts = async (req, res) => {
 
 const createProduct = async (req, res) => {
   try {
-    const body = matchedData(req);
-    console.log(body);
-    // const data = await models.productsModel.create(body);
+    const product = matchedData(req);
+    const result = await models.productsModel.create(product);
+    res.send({ result });
   } catch (error) {
     handleHttpError(res, 'ERROR_CREATE_PRODUCT');
   }
