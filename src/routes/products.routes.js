@@ -13,7 +13,11 @@ productsRoutes.get('/', productsController.getProducts);
 /**
  * * Get Product Detail
  */
-productsRoutes.get('/:id', productsController.getProductDetail);
+productsRoutes.get(
+  '/:id',
+  productsValidator.isValidId,
+  productsController.getProductDetail
+);
 
 /**
  * * Create New Product

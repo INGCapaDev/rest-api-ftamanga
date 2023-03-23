@@ -29,4 +29,9 @@ const isValidProduct = [
   (req, res, next) => validateResults(req, res, next),
 ];
 
-export default { isValidProduct };
+const isValidId = [
+  check('id').exists().notEmpty().isInt({ min: 1 }),
+  (req, res, next) => validateResults(req, res, next),
+];
+
+export default { isValidProduct, isValidId };
