@@ -30,6 +30,7 @@ const getProductDetail = async (req, res) => {
     if (!data) {
       return handleHttpError(res, 'ERROR_PRODUCT_NOT_EXISTS');
     }
+    res.send({ data });
   } catch (error) {
     handleHttpError(res, 'ERROR_GET_PRODUCT_DETAIL');
   }
