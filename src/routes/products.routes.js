@@ -27,3 +27,13 @@ productsRoutes.post(
   productsValidator.isValidProduct,
   productsController.createProduct
 );
+
+/**
+ * * Update Product
+ */
+productsRoutes.put(
+  '/:id',
+  productsValidator.isValidId,
+  productsValidator.isValidProduct,
+  productsController.updateProduct
+);
