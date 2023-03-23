@@ -37,3 +37,12 @@ productsRoutes.put(
   productsValidator.isValidProduct,
   productsController.updateProduct
 );
+
+/**
+ * ! Delete Product
+ */
+productsRoutes.delete(
+  '/:id',
+  productsValidator.isValidId,
+  productsController.deleteProduct
+);
