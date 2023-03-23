@@ -11,6 +11,11 @@ import productsValidator from '../validators/products.validator.js';
 productsRoutes.get('/', productsController.getProducts);
 
 /**
+ * * Get Product Detail
+ */
+productsRoutes.get('/:id', productsController.getProductDetail);
+
+/**
  * * Create New Product
  */
 productsRoutes.post(

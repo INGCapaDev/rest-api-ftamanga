@@ -52,5 +52,6 @@ const createProduct = async (req, res) => {
 
 export default {
   getProducts,
+  getProductDetail,
   createProduct,
 };
