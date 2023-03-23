@@ -82,3 +82,37 @@
   Se arreglo el controlador de productos
   que le faltaba retornar la respuesta que
   obtenia de la base de datos al usuario.
+
+---
+
+- Error
+  El controlador de borrar productos arroja error
+  al intentar borrar el producto, a pesar de que este
+  si exista en la base de datos.
+- Fecha
+  23-Marzo-2023
+- Tester
+  Nombre
+- Soluciono
+  Alvaro Capaceta
+- Solucion
+  Se corrigio la consulta que se realizaba por el controlador
+  de productos al momento de intentar eliminar un producto
+  en la base de datos.
+
+---
+
+- Error
+  El controlador de borrar productos al regresar
+  una respuesta al usuario, cuando se logro realizar
+  la eliminacion con exito regresa una respuesta
+  sin sentido.
+- Fecha
+  23-Marzo-2023
+- Tester
+  Nombre
+- Soluciono
+  Alvaro Capaceta
+- Solucion
+  Se cambio la respuesta que arroja al servidor
+  al usuario cuando se completa el proceso correctamente.

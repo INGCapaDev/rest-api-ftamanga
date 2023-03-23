@@ -84,8 +84,8 @@ const deleteProduct = async (req, res) => {
     if (!product) {
       return handleHttpError(res, 'ERROR_PRODUCT_NOT_EXISTS');
     }
-    const data = await models.tracksModel.delete({ id: id });
-    res.send({ data });
+    await models.productsModel.destroy({ where: { id: id } });
+    res.send({ message: `PRODUCT_DELETE_SUCCESSFULLY_ID_${id}` });
   } catch (error) {
     handleHttpError(res, 'ERROR_DELETE_PRODUCT');
   }
