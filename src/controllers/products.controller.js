@@ -71,6 +71,26 @@ const updateProduct = async (req, res) => {
   }
 };
 
+/**
+ * ! Delete Product
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
+const deleteProduct = async (req, res) => {
+  try {
+    const { id } = matchedData(req);
+    const product = await models.productsModel.findByPk(id);
+    if (!product) {
+      return handleHttpError(res, 'ERROR_PRODUCT_NOT_EXISTS');
+    }
+    const data = await models.tracksModel.delete({ id: id });
+    res.send({ data });
+  } catch (error) {
+    handleHttpError(res, 'ERROR_DELETE_PRODUCT');
+  }
+};
+
 export default {
   getProducts,
   getProductDetail,
