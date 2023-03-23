@@ -24,7 +24,7 @@ const createProduct = async (req, res) => {
     console.log(body);
     // const data = await models.productsModel.create(body);
   } catch (error) {
-    handleHttpError(res, 'ERROR_INSERT_PRODUCT');
+    handleHttpError(res, 'ERROR_CREATE_PRODUCT');
   }
 };
 
