@@ -8,6 +8,7 @@ const isValidProduct = [
     .notEmpty()
     .isDecimal({ force_decimal: true, decimal_digits: 2 })
     .isFloat({ min: 0, max: 999999 }),
+  (req, res, next) => validateResults(req, res, next),
 ];
 
-export default {};
+export default { isValidProduct };
