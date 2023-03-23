@@ -18,6 +18,13 @@ const getProducts = async (req, res) => {
   }
 };
 
+const addProduct = async (req, res) => {
+  try {
+  } catch (error) {
+    handleHttpError(res, 'ERROR_INSERT_PRODUCT');
+  }
+};
+
 export default {
   getProducts,
 };
