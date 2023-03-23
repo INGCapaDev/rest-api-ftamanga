@@ -51,8 +51,29 @@ const createProduct = async (req, res) => {
   }
 };
 
+/**
+ * * Update Product
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
+const updateProduct = async (req, res) => {
+  try {
+    const { id, ...body } = matchedData(req);
+    const product = await models.productsModel.findByPk(id);
+    if (!product) {
+      return handleHttpError(res, 'ERROR_PRODUCT_NOT_EXISTS');
+    }
+    await models.productsModel.update(body, { where: { id: id } });
+    res.send({ data: body, message: `PRODUCT_UPDATE_SUCCESSFULLY_ID_${id}` });
+  } catch (error) {
+    handleHttpError(res, 'ERROR_UPDATE_PRODUCT');
+  }
+};
+
 export default {
   getProducts,
   getProductDetail,
   createProduct,
+  updateProduct,
 };
