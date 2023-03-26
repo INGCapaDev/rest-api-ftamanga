@@ -1,8 +1,12 @@
 import { matchedData } from 'express-validator';
 import { models } from '../models/index.models.js';
+import fs from 'fs-extra';
 
 // TODO Error Handler
 import { handleHttpError } from '../utils/handleError.js';
+
+// TODO upload files to cloudinary
+import { uploadImage, deleteImage } from '../utils/cloudinary.js';
 
 /**
  * * Get All Products
@@ -44,9 +48,18 @@ const getProductDetail = async (req, res) => {
 const createProduct = async (req, res) => {
   try {
     const product = matchedData(req);
+    if (req.files?.img.tempFilePath) {
+      const img = await uploadImage(req.files.img.tempFilePath);
+      product.img = img.secure_url;
+      product.img_id = img.public_id;
+      await fs.unlink(req.files.img.tempFilePath);
+    }
     const data = await models.productsModel.create(product);
-    res.send({ data });
+    res.json(data);
   } catch (error) {
+    if (product.img_id) {
+      await deleteImage(product.img_id);
+    }
     handleHttpError(res, 'ERROR_CREATE_PRODUCT');
   }
 };
@@ -64,6 +77,18 @@ const updateProduct = async (req, res) => {
     if (!product) {
       return handleHttpError(res, 'ERROR_PRODUCT_NOT_EXISTS');
     }
+
+    if (req.files?.img.tempFilePath) {
+      const img = await uploadImage(req.files.img.tempFilePath);
+      body.img = img.secure_url;
+      body.img_id = img.public_id;
+
+      if (product.img_id) {
+        await deleteImage(product.img_id);
+      }
+      await fs.unlink(req.files.img.tempFilePath);
+    }
+
     await models.productsModel.update(body, { where: { id: id } });
     res.send({ data: body, message: `PRODUCT_UPDATE_SUCCESSFULLY_ID_${id}` });
   } catch (error) {
@@ -81,10 +106,15 @@ const deleteProduct = async (req, res) => {
   try {
     const { id } = matchedData(req);
     const product = await models.productsModel.findByPk(id);
+
     if (!product) {
       return handleHttpError(res, 'ERROR_PRODUCT_NOT_EXISTS');
     }
     await models.productsModel.destroy({ where: { id: id } });
+    if (product.img_id) {
+      await deleteImage(product.img_id);
+    }
+
     res.send({ message: `PRODUCT_DELETE_SUCCESSFULLY_ID_${id}` });
   } catch (error) {
     handleHttpError(res, 'ERROR_DELETE_PRODUCT');

@@ -17,7 +17,6 @@ const isValidProduct = [
     .notEmpty()
     .isLength({ max: 99 })
     .withMessage('The product editorial name is too long...'),
-  check('img').exists().notEmpty(),
   check('year')
     .exists()
     .notEmpty()
@@ -25,7 +24,6 @@ const isValidProduct = [
     .withMessage(
       'The product year only accept numeric intenger values between 1900 and 2030'
     ),
-
   (req, res, next) => validateResults(req, res, next),
 ];
 

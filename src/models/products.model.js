@@ -9,6 +9,7 @@ export const productsModel = sequelize.define(
     price: { type: DataTypes.FLOAT, allowNull: false },
     editorial: { type: DataTypes.STRING, allowNull: false },
     img: { type: DataTypes.STRING },
+    img_id: { type: DataTypes.STRING },
     year: { type: DataTypes.NUMBER, allowNull: false },
   },
   {
