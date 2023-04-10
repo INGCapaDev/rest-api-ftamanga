@@ -4,27 +4,48 @@ import usersController from '../controllers/users.controller.js';
 
 // TODO Middlewares and Validators
 import usersValidator from '../validators/users.validator.js';
+import { authMiddleware } from '../middlewares/sessionMiddleware.js';
+import { checkRol } from '../middlewares/rolMiddleware.js';
 
 /**
  * * Get All Users
  */
-userRoutes.get('/', usersController.getUsers);
+userRoutes.get(
+  '/',
+  authMiddleware,
+  checkRol(['Admin']),
+  usersController.getUsers
+);
 
 /**
  * * Get User Detail
  */
-userRoutes.get('/:id', usersValidator.isValidId, usersController.getUserDetail);
+userRoutes.get(
+  '/:id',
+  authMiddleware,
+  checkRol(['Admin']),
+  usersValidator.isValidId,
+  usersController.getUserDetail
+);
 
 /**
  * * Create New User
  */
-userRoutes.post('/', usersValidator.isValidUser, usersController.registerUser);
+userRoutes.post(
+  '/',
+  authMiddleware,
+  checkRol(['Admin']),
+  usersValidator.isValidUser,
+  usersController.registerUser
+);
 
 /**
  * * Update User
  */
 userRoutes.put(
   '/:id',
+  authMiddleware,
+  checkRol(['Admin']),
   usersValidator.isValidId,
   usersValidator.isValidUser,
   usersController.updateUser
@@ -33,4 +54,10 @@ userRoutes.put(
 /**
  * ! Delete User
  */
-userRoutes.delete('/:id', usersValidator.isValidId, usersController.deleteUser);
+userRoutes.delete(
+  '/:id',
+  authMiddleware,
+  checkRol(['Admin']),
+  usersValidator.isValidId,
+  usersController.deleteUser
+);
