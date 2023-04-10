@@ -1,9 +1,10 @@
 import { matchedData } from 'express-validator';
 import { models } from '../models/index.models.js';
-import fs from 'fs-extra';
 
 // TODO Error Handler
 import { handleHttpError } from '../utils/handleError.js';
+import { encryptPassword, comparePassword } from '../utils/handlePassword.js';
+import { tokenSign } from '../utils/handleJwt.js';
 
 /**
  * * Get All Users
@@ -37,7 +38,32 @@ const getUserDetail = async (req, res) => {
   }
 };
 
+/**
+ * * Register User
+ * @param {*} req
+ * @param {*} res
+ */
+const registerUser = async (req, res) => {
+  try {
+    req = matchedData(req);
+    const passwordHash = await encryptPassword(req.password);
+    const body = { ...req, password: passwordHash };
+    const userData = await models.usersModel.create(body);
+    userData.set('password', undefined, { strict: false });
+
+    const data = {
+      token: tokenSign(userData),
+      user: userData,
+    };
+
+    res.send({ data });
+  } catch (error) {
+    handleHttpError(res, 'ERROR_REGISTER_USER');
+  }
+};
+
 export default {
   getUsers,
   getUserDetail,
+  registerUser,
 };
