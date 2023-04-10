@@ -22,7 +22,9 @@ export const authMiddleware = async (req, res, next) => {
       return handleHttpError(res, 'ERROR_NOT_PAYLOAD_DATA', 401);
     }
 
-    const user = await models.usersModel.findOne({ id: dataToken.id });
+    const user = await models.usersModel.findOne({
+      where: { id: dataToken.id },
+    });
     req.user = user;
 
     next();

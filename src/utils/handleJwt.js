@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET;
-
 /**
  * * user = The user object
  * @param {*} user
@@ -21,7 +20,7 @@ export const tokenSign = (user) => {
 
 export const verifyToken = (tokenJwt) => {
   try {
-    return jwt.verifyToken(tokenJwt, JWT_SECRET);
+    return jwt.verify(tokenJwt, JWT_SECRET);
   } catch (error) {
     return null;
   }
