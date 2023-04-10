@@ -1,5 +1,5 @@
 import express from 'express';
-const userRoutes = express.Router();
+export const userRoutes = express.Router();
 import usersController from '../controllers/users.controller.js';
 
 // TODO Middlewares and Validators
