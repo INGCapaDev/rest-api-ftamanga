@@ -78,7 +78,7 @@ const loginUser = async (req, res) => {
     const check = await comparePassword(req.password, hashPassword);
     if (!check) return handleHttpError(res, 'ERROR_INVALID_PASSWORD', 401);
 
-    user.set(password, undefined, { strict: false });
+    user.set('password', undefined, { strict: false });
 
     const data = {
       token: tokenSign(user),
