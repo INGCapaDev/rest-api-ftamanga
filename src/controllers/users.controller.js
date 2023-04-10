@@ -5,6 +5,7 @@ import { models } from '../models/index.models.js';
 import { handleHttpError } from '../utils/handleError.js';
 import { encryptPassword, comparePassword } from '../utils/handlePassword.js';
 import { tokenSign } from '../utils/handleJwt.js';
+import { where } from 'sequelize';
 
 /**
  * * Get All Users
@@ -71,9 +72,8 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
   try {
     req = matchedData(req);
-    const user = await models.usersModel.findOne({ user: req.user });
+    const user = await models.usersModel.findOne({ where: { user: req.user } });
     if (!user) return handleHttpError(res, 'ERROR_USER_NOT_EXISTS', 404);
-
     const hashPassword = user.get('password');
     const check = await comparePassword(req.password, hashPassword);
     if (!check) return handleHttpError(res, 'ERROR_INVALID_PASSWORD', 401);
