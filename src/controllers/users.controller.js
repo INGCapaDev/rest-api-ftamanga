@@ -91,9 +91,31 @@ const loginUser = async (req, res) => {
   }
 };
 
+/**
+ * * Update Product
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
+const updateUser = async (req, res) => {
+  try {
+    const { id, ...body } = matchedData(req);
+    const user = await models.usersModel.findByPk(id);
+    if (!user) {
+      return handleHttpError(res, 'ERROR_USER_NOT_EXISTS', 404);
+    }
+
+    await models.usersModel.update(body, { where: { id: id } });
+    res.send({ data: body, message: `USER_UPDATE_SUCCESSFULLY_ID_${id}` });
+  } catch (error) {
+    handleHttpError(res, 'ERROR_UPDATE_USER');
+  }
+};
+
 export default {
   getUsers,
   getUserDetail,
   registerUser,
   loginUser,
+  updateUser,
 };
