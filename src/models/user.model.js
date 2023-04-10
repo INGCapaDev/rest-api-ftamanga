@@ -8,9 +8,9 @@ export const usersModel = sequelize.define(
     name: { type: DataTypes.STRING, allowNull: false },
     user: { type: DataTypes.STRING, allowNull: false, unique: true },
     password: { type: DataTypes.STRING, allowNull: false },
-    adress: { type: DataTypes.STRING },
+    address: { type: DataTypes.STRING },
     phone: { type: DataTypes.STRING },
-    email: { type: DataTypes, allowNull: false, unique: true },
+    email: { type: DataTypes.STRING, allowNull: false, unique: true },
     role: { type: DataTypes.ENUM(['User', 'Admin']) },
   },
   {
