@@ -4,6 +4,8 @@ import productsController from '../controllers/products.controller.js';
 
 // TODO Middlewares and Validators
 import productsValidator from '../validators/products.validator.js';
+import { authMiddleware } from '../middlewares/sessionMiddleware.js';
+import { checkRol } from '../middlewares/rolMiddleware.js';
 
 /**
  * * Get All Products
@@ -24,6 +26,8 @@ productsRoutes.get(
  */
 productsRoutes.post(
   '/',
+  authMiddleware,
+  checkRol(['Admin']),
   productsValidator.isValidProduct,
   productsController.createProduct
 );
@@ -33,6 +37,8 @@ productsRoutes.post(
  */
 productsRoutes.put(
   '/:id',
+  authMiddleware,
+  checkRol(['Admin']),
   productsValidator.isValidId,
   productsValidator.isValidProduct,
   productsController.updateProduct
@@ -43,6 +49,8 @@ productsRoutes.put(
  */
 productsRoutes.delete(
   '/:id',
+  authMiddleware,
+  checkRol(['Admin']),
   productsValidator.isValidId,
   productsController.deleteProduct
 );
