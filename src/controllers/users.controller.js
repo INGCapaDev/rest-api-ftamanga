@@ -62,8 +62,38 @@ const registerUser = async (req, res) => {
   }
 };
 
+/**
+ * * Login user
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
+const loginUser = async (req, res) => {
+  try {
+    req = matchedData(req);
+    const user = await models.usersModel.findOne({ user: req.user });
+    if (!user) return handleHttpError(res, 'ERROR_USER_NOT_EXISTS', 404);
+
+    const hashPassword = user.get('password');
+    const check = await comparePassword(req.password, hashPassword);
+    if (!check) return handleHttpError(res, 'ERROR_INVALID_PASSWORD', 401);
+
+    user.set(password, undefined, { strict: false });
+
+    const data = {
+      token: tokenSign(user),
+      user,
+    };
+
+    res.send({ data });
+  } catch (error) {
+    handleHttpError(res, 'ERROR_LOGIN_USER');
+  }
+};
+
 export default {
   getUsers,
   getUserDetail,
   registerUser,
+  loginUser,
 };
