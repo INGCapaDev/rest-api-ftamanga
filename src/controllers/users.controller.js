@@ -92,7 +92,7 @@ const loginUser = async (req, res) => {
 };
 
 /**
- * * Update Product
+ * * Update User
  * @param {*} req
  * @param {*} res
  * @returns
@@ -112,10 +112,33 @@ const updateUser = async (req, res) => {
   }
 };
 
+/**
+ * ! Delete User
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
+const deleteUser = async (req, res) => {
+  try {
+    const { id } = matchedData(req);
+    const user = await models.productsModel.findByPk(id);
+
+    if (!user) {
+      return handleHttpError(res, 'ERROR_USER_NOT_EXISTS', 404);
+    }
+    await models.usersModel.destroy({ where: { id: id } });
+
+    res.send({ message: `USER_DELETE_SUCCESSFULLY_ID_${id}` });
+  } catch (error) {
+    handleHttpError(res, 'ERROR_DELETE_USER');
+  }
+};
+
 export default {
   getUsers,
   getUserDetail,
   registerUser,
   loginUser,
   updateUser,
+  deleteUser,
 };
