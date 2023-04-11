@@ -100,13 +100,17 @@ const loginUser = async (req, res) => {
 const updateUser = async (req, res) => {
   try {
     const { id, ...body } = matchedData(req);
+    const passwordHash = await encryptPassword(body.password);
+    const newUser = { ...body, password: passwordHash };
     const user = await models.usersModel.findByPk(id);
     if (!user) {
       return handleHttpError(res, 'ERROR_USER_NOT_EXISTS', 404);
     }
 
-    await models.usersModel.update(body, { where: { id: id } });
-    res.send({ data: body, message: `USER_UPDATE_SUCCESSFULLY_ID_${id}` });
+    await models.usersModel.update(newUser, { where: { id: id } });
+    delete newUser.password;
+
+    res.send({ data: newUser, message: `USER_UPDATE_SUCCESSFULLY_ID_${id}` });
   } catch (error) {
     handleHttpError(res, 'ERROR_UPDATE_USER');
   }

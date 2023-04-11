@@ -57,9 +57,6 @@ const createProduct = async (req, res) => {
     const data = await models.productsModel.create(product);
     res.json(data);
   } catch (error) {
-    if (product.img_id) {
-      await deleteImage(product.img_id);
-    }
     handleHttpError(res, 'ERROR_CREATE_PRODUCT');
   }
 };
