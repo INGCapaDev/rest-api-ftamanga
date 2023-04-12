@@ -23,7 +23,7 @@ export const authMiddleware = async (req, res, next) => {
     }
 
     const user = await models.usersModel.findOne({
-      where: { id: dataToken.id },
+      where: { id: dataToken.userId },
     });
     req.user = user;
 
