@@ -24,6 +24,7 @@ const isValidUser = [
     .notEmpty()
     .isEmail()
     .withMessage('Choose a valid email...'),
+  check('role').exists().notEmpty().optional(),
   (req, res, next) => validateResults(req, res, next),
 ];
 
