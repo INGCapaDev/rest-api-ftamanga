@@ -125,7 +125,7 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   try {
     const { id } = matchedData(req);
-    const user = await models.productsModel.findByPk(id);
+    const user = await models.userModel.findByPk(id);
 
     if (!user) {
       return handleHttpError(res, 'ERROR_USER_NOT_EXISTS', 404);
