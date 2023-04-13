@@ -5,7 +5,7 @@ import { DataTypes } from 'sequelize';
 export const salesModel = sequelize.define(
   'sales',
   {
-    id_user: { type: DataTypes.INTENGER, allowNull: false },
+    id_user: { type: DataTypes.INTEGER, allowNull: false },
     pay: { type: DataTypes.ENUM(['Credit', 'Debit']), allowNull: false },
     total: { type: DataTypes.DOUBLE, allowNull: false, unique: true },
   },

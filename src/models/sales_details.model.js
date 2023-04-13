@@ -5,9 +5,9 @@ import { DataTypes } from 'sequelize';
 export const salesDetailsModel = sequelize.define(
   'sales_details',
   {
-    id_sale: { type: DataTypes.INTENGER, allowNull: false },
-    id_product: { type: DataTypes.INTENGER, allowNull: false },
-    quantity: { type: DataTypes.INTENGER, allowNull: false },
+    id_sale: { type: DataTypes.INTEGER, allowNull: false },
+    id_product: { type: DataTypes.INTEGER, allowNull: false },
+    quantity: { type: DataTypes.INTEGER, allowNull: false },
     subtotal: { type: DataTypes.DOUBLE, allowNull: false, unique: true },
   },
   {
