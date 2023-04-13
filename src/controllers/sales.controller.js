@@ -63,7 +63,7 @@ const searchSale = async (req, res) => {
 const createSale = async (req, res) => {
   try {
     const sale = matchedData(req);
-    const data = await models.productsModel.create(sale);
+    const data = await models.salesModel.create(sale);
     res.json(data);
   } catch (error) {
     handleHttpError(res, 'ERROR_CREATE_SALE');
