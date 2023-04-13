@@ -1,7 +1,7 @@
 import { sequelize } from '../database/config.js';
 import { DataTypes } from 'sequelize';
 
-// TODO SQL Table users
+// TODO SQL Table sales
 export const salesModel = sequelize.define(
   'sales',
   {
