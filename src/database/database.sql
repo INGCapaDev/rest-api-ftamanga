@@ -1,3 +1,4 @@
+-- Active: 1681154375309@@127.0.0.1@3306@ftamangaapi
 
 CREATE DATABASE IF NOT EXISTS ftamangaapi;
 
@@ -26,4 +27,26 @@ CREATE TABLE IF NOT EXISTS users(
   role ENUM('User', 'Admin') NOT NULL DEFAULT 'User',
   createdAt DATETIME DEFAULT NULL,
   updatedAt DATETIME DEFAULT NULL
+);
+
+CREATE TABLE IF NOT EXISTS sales(
+  id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  id_user INT NOT NULL,
+  pay ENUM('Credit', 'Debit') NOT NULL DEFAULT 'Debit',
+  total DOUBLE NOT NULL DEFAULT 0,
+  createdAt DATETIME DEFAULT NULL,
+  updatedAt DATETIME DEFAULT NULL,
+  Foreign Key (id_user) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS sales_details(
+  id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  id_sale INT NOT NULL,
+  id_product INT NOT NULL,
+  quantity INT NOT NULL DEFAULT 1,
+  subtotal DOUBLE NOT NULL DEFAULT 0,
+  createdAt DATETIME DEFAULT NULL,
+  updatedAt DATETIME DEFAULT NULL,
+  Foreign Key (id_sale) REFERENCES sales(id),
+  Foreign Key (id_product) REFERENCES products(id)
 );
