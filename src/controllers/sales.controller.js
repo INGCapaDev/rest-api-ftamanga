@@ -41,6 +41,7 @@ const searchSale = async (req, res) => {
         },
         {
           model: models.salesDetailsModel,
+          include: { model: models.productsModel },
         },
       ],
       where: { id: id },
