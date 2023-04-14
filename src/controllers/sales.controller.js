@@ -13,11 +13,10 @@ const getSales = async (req, res) => {
   try {
     const data = await models.salesModel.findAll({
       include: [
-        {
-          model: models.usersModel,
-        },
+        { model: models.usersModel },
         {
           model: models.salesDetailsModel,
+          include: { model: models.productsModel },
         },
       ],
     });
@@ -51,7 +50,7 @@ const searchSale = async (req, res) => {
     }
     res.send({ data });
   } catch (error) {
-    handleHttpError(res, 'ERROR_GET_PRODUCT_DETAIL');
+    handleHttpError(res, 'ERROR_GET_SALE_DETAIL');
   }
 };
 
